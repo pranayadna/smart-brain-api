@@ -1,8 +1,7 @@
 const express = require('express')
 const cors = require('cors')
 const knex = require('knex')
-const bcrypt = require('bcrypt')
-const saltRounds = 10;
+const bcrypt = require('bcrypt-nodejs')
 
 const register = require('./controllers/register')
 const signIn = require('./controllers/sign-in')
@@ -23,12 +22,12 @@ app.use(express.json())
 app.use(cors())
 
 app.get('/', (req, res) => {
-    res.json(database.users)
+    res.send('it is working')
 })
 
-app.post('/signin', (req, res) => { res.send('it is working') })
+app.post('/signin', (req, res) => { signIn.signInHandler(req, res, db, bcrypt)})
 
-app.post('/register', (req, res) => { register.registerHandler(req, res, db, bcrypt, saltRounds) })
+app.post('/register', (req, res) => { register.registerHandler(req, res, db, bcrypt) })
 
 app.get('/profile/:id', (req, res) => { profile.getProfileHandler(req, res, db) })
 
