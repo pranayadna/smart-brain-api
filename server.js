@@ -7,12 +7,16 @@ const register = require('./controllers/register')
 const signIn = require('./controllers/sign-in')
 const profile = require('./controllers/profile')
 const image = require('./controllers/image')
+const { defaults } = require('pg')
 
 const db = knex({
     client: 'pg',
     connection: {
-        connectionString : 'postgresql://postgres:xB73KYPvzpLpyxdlCLSv@containers-us-west-194.railway.app:6422/railway'
-      }
+        connectionString: 'postgresql://postgres4:mypostgres4@database-1.c5hahmzbtmr4.ap-southeast-1.rds.amazonaws.com/myDatabase',
+        ssl: {
+            rejectUnauthorized: false
+        }
+    }
 });
 
 const app = express()
@@ -25,7 +29,7 @@ app.get('/', (req, res) => {
     res.send('it is working')
 })
 
-app.post('/signin', (req, res) => { signIn.signInHandler(req, res, db, bcrypt)})
+app.post('/signin', (req, res) => { signIn.signInHandler(req, res, db, bcrypt) })
 
 app.post('/register', (req, res) => { register.registerHandler(req, res, db, bcrypt) })
 
@@ -43,3 +47,5 @@ app.listen(port, () => {
         console.log(`app is running on port ${process.env.PORT}`);
     }
 })
+
+export default app
