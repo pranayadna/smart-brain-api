@@ -12,7 +12,7 @@ const { defaults } = require('pg')
 const db = knex({
     client: 'pg',
     connection: {
-        connectionString: 'postgresql://postgres4:mypostgres4@database-1.c5hahmzbtmr4.ap-southeast-1.rds.amazonaws.com/myDatabase',
+        connectionString: 'postgres://default:cQCipLUmN3l2@ep-red-frost-18574963-pooler.ap-southeast-1.postgres.vercel-storage.com:5432/verceldb',
         ssl: {
             rejectUnauthorized: false
         }
